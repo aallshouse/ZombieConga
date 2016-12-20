@@ -306,6 +306,7 @@
 				3726E80D1DECF8FB00CD1FAE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
