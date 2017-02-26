@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		270456EC1E49473700BEF640 /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270456EB1E49473700BEF640 /* MyUtils.swift */; };
 		3726E7F71DECF8FB00CD1FAE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3726E7F61DECF8FB00CD1FAE /* AppDelegate.swift */; };
 		3726E7FD1DECF8FB00CD1FAE /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3726E7FC1DECF8FB00CD1FAE /* GameScene.swift */; };
 		3726E7FF1DECF8FB00CD1FAE /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3726E7FE1DECF8FB00CD1FAE /* GameViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		270456EB1E49473700BEF640 /* MyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
 		3726E7F31DECF8FB00CD1FAE /* ZombieConga.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZombieConga.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3726E7F61DECF8FB00CD1FAE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3726E7FC1DECF8FB00CD1FAE /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				3726E8031DECF8FB00CD1FAE /* Assets.xcassets */,
 				3726E8051DECF8FB00CD1FAE /* LaunchScreen.storyboard */,
 				3726E8081DECF8FB00CD1FAE /* Info.plist */,
+				270456EB1E49473700BEF640 /* MyUtils.swift */,
 			);
 			path = ZombieConga;
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 				3726E7FD1DECF8FB00CD1FAE /* GameScene.swift in Sources */,
 				3726E7FF1DECF8FB00CD1FAE /* GameViewController.swift in Sources */,
 				3726E7F71DECF8FB00CD1FAE /* AppDelegate.swift in Sources */,
+				270456EC1E49473700BEF640 /* MyUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
