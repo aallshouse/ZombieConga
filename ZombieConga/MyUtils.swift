@@ -81,6 +81,8 @@ extension CGPoint {
     }
 }
 
+//TODO: Clockwise rotation is spinning the zombie around a full 360 before going to the new angle of movement
+//Counter-clockwise is rotating as expected
 let π = CGFloat.pi
 func shortestAngleBetween(angle1: CGFloat,
                           angle2: CGFloat) -> CGFloat {
@@ -98,5 +100,14 @@ func shortestAngleBetween(angle1: CGFloat,
 extension CGFloat {
     func sign() -> CGFloat {
         return self >= 0.0 ? 1.0 : -1.0
+    }
+    
+    static func random() -> CGFloat {
+        return CGFloat(Float(arc4random()) / Float(UInt32.max))
+    }
+    
+    static func random(min: CGFloat, max: CGFloat) -> CGFloat {
+        assert(min < max)
+        return CGFloat.random() * (max - min) + min
     }
 }

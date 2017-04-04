@@ -9,6 +9,7 @@ class GameScene: SKScene {
     let playableRect: CGRect
     var lastTouchLocation = CGPoint.zero
     let zombieRotateRadiansPerSec:CGFloat = 4.0 * π
+    let zombieAnimation: SKAction
     
     override init(size: CGSize) {
         let maxAspectRatio:CGFloat = 16.0 / 9.0
@@ -17,6 +18,17 @@ class GameScene: SKScene {
         playableRect = CGRect(x: 0, y: playableMargin,
                               width: size.width,
                               height: playableHeight)
+        //1
+        var textures:[SKTexture] = []
+        //2
+        for i in 1...4 {
+            textures.append(SKTexture(imageNamed: "zombie\(i)"))
+        }
+        //3
+        textures.append(textures[2])
+        textures.append(textures[1])
+        //4
+        zombieAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
         super.init(size: size)
     }
     
@@ -42,12 +54,15 @@ class GameScene: SKScene {
         //background.zRotation = CGFloat(M_PI) / 8
         background.zPosition = -1
         addChild(background)
-        let mySize = background.size
-        //print("Size: \(mySize)")
         
         zombie.position = CGPoint(x: 400, y: 400)
         addChild(zombie)
-        spawnEnemy()
+        zombie.run(SKAction.repeatForever(zombieAnimation))
+        run(SKAction.repeatForever(
+            SKAction.sequence([SKAction.run() {
+                    [weak self] in self?.spawnEnemy()
+                },
+                SKAction.wait(forDuration: 2.0)])))
         debugDrawPlayableArea()
     }
     
@@ -141,23 +156,14 @@ class GameScene: SKScene {
     func spawnEnemy() {
         let enemy = SKSpriteNode(imageNamed: "enemy")
         enemy.position = CGPoint(x: size.width + enemy.size.width/2,
-                                 y: size.height/2)
+                                 y: CGFloat.random(
+                                    min: playableRect.minY + enemy.size.height/2,
+                                    max: playableRect.maxY - enemy.size.height/2))
         addChild(enemy)
-        let actionMidMove = SKAction.moveBy(
-            x: -size.width/2 - enemy.size.width/2,
-            y: -playableRect.height/2 + enemy.size.height/2,
-            duration: 1.0)
-        let actionMove = SKAction.moveBy(
-            x: -size.width/2 - enemy.size.width/2,
-            y: playableRect.height/2 - enemy.size.height/2,
-            duration: 1.0)
-        let wait = SKAction.wait(forDuration: 0.25)
-        let logMessage = SKAction.run(){
-            print("Reached bottom!")
-        }
-        let halfSequence = SKAction.sequence([actionMidMove, logMessage, wait, actionMove])
-        let sequence = SKAction.sequence([halfSequence, halfSequence.reversed()])
-        let repeatAction = SKAction.repeatForever(sequence)
-        enemy.run(repeatAction)
+        
+        let actionMove =
+            SKAction.moveTo(x: -enemy.size.width/2, duration: 2.0)
+        let actionRemove = SKAction.removeFromParent()
+        enemy.run(SKAction.sequence([actionMove, actionRemove]))
     }
 }
