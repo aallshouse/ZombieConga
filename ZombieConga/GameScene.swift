@@ -10,6 +10,7 @@ class GameScene: SKScene {
     var lastTouchLocation = CGPoint.zero
     let zombieRotateRadiansPerSec:CGFloat = 4.0 * π
     let zombieAnimation: SKAction
+    let zombieAnimationKey: String = "zombieAnimation"
     
     override init(size: CGSize) {
         let maxAspectRatio:CGFloat = 16.0 / 9.0
@@ -57,12 +58,17 @@ class GameScene: SKScene {
         
         zombie.position = CGPoint(x: 400, y: 400)
         addChild(zombie)
-        zombie.run(SKAction.repeatForever(zombieAnimation))
+        //zombie.run(SKAction.repeatForever(zombieAnimation))
         run(SKAction.repeatForever(
             SKAction.sequence([SKAction.run() {
                     [weak self] in self?.spawnEnemy()
                 },
                 SKAction.wait(forDuration: 2.0)])))
+        run(SKAction.repeatForever(
+            SKAction.sequence([SKAction.run() {
+                                [weak self] in self?.spawnCat()
+                              },
+                              SKAction.wait(forDuration: 1.0)])))
         debugDrawPlayableArea()
     }
     
@@ -80,6 +86,7 @@ class GameScene: SKScene {
         if(touchDistance <= lengthToMove) {
             zombie.position = lastTouchLocation
             velocity = CGPoint.zero
+            stopZombieAnimation()
         } else {
             move(sprite: zombie, velocity: velocity)
             rotate(sprite: zombie, direction: velocity)
@@ -96,9 +103,22 @@ class GameScene: SKScene {
     }
     
     func moveZombieToward(location: CGPoint) {
+        startZombieAnimation()
         let offset = location - zombie.position
         let direction = offset.normalized()
         velocity = direction * zombieMovePointsPerSec
+    }
+    
+    func startZombieAnimation() {
+        if zombie.action(forKey: zombieAnimationKey) == nil {
+            zombie.run(
+                SKAction.repeatForever(zombieAnimation),
+                withKey: zombieAnimationKey)
+        }
+    }
+    
+    func stopZombieAnimation() {
+        zombie.removeAction(forKey: zombieAnimationKey)
     }
     
     func sceneTouched(touchLocation:CGPoint) {
@@ -151,6 +171,39 @@ class GameScene: SKScene {
             amountToRotate = shortest
         }
         sprite.zRotation += amountToRotate * amountToRotate.sign()
+    }
+    
+    func spawnCat() {
+        //1
+        let cat = SKSpriteNode(imageNamed: "cat")
+        cat.position = CGPoint(
+            x: CGFloat.random(min: playableRect.minX,
+                              max: playableRect.maxX),
+            y: CGFloat.random(min: playableRect.minY,
+                              max: playableRect.maxY))
+        cat.setScale(0)
+        addChild(cat)
+        //2
+        let appear = SKAction.scale(to: 1.0, duration: 0.5)
+        
+        //let wait = SKAction.wait(forDuration: 10.0)
+        cat.zRotation = -π / 16.0
+        let leftWiggle = SKAction.rotate(byAngle: π/8.0, duration: 0.5)
+        let rightWiggle = leftWiggle.reversed()
+        let fullWiggle = SKAction.sequence([leftWiggle, rightWiggle])
+        
+        let scaleUp = SKAction.scale(by: 1.2, duration: 0.25)
+        let scaleDown = scaleUp.reversed()
+        let fullScale = SKAction.sequence([scaleUp, scaleDown, scaleUp, scaleDown])
+        let group = SKAction.group([fullScale, fullWiggle])
+        let groupWait = SKAction.repeat(group, count: 10)
+        
+        //let wiggleWait = SKAction.repeat(fullWiggle, count: 10)
+        
+        let disappear = SKAction.scale(to: 0, duration: 0.5)
+        let removeFromParent = SKAction.removeFromParent()
+        let actions = [appear, groupWait, disappear, removeFromParent]
+        cat.run(SKAction.sequence(actions))
     }
     
     func spawnEnemy() {
