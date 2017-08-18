@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		270456EC1E49473700BEF640 /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270456EB1E49473700BEF640 /* MyUtils.swift */; };
+		27A68BE91F426D2200A39787 /* backgroundMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 27A68BE41F426D2200A39787 /* backgroundMusic.mp3 */; };
+		27A68BEA1F426D2200A39787 /* hitCat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 27A68BE51F426D2200A39787 /* hitCat.wav */; };
+		27A68BEB1F426D2200A39787 /* hitCatLady.wav in Resources */ = {isa = PBXBuildFile; fileRef = 27A68BE61F426D2200A39787 /* hitCatLady.wav */; };
+		27A68BEC1F426D2200A39787 /* lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 27A68BE71F426D2200A39787 /* lose.wav */; };
+		27A68BED1F426D2200A39787 /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = 27A68BE81F426D2200A39787 /* win.wav */; };
 		3726E7F71DECF8FB00CD1FAE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3726E7F61DECF8FB00CD1FAE /* AppDelegate.swift */; };
 		3726E7FD1DECF8FB00CD1FAE /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3726E7FC1DECF8FB00CD1FAE /* GameScene.swift */; };
 		3726E7FF1DECF8FB00CD1FAE /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3726E7FE1DECF8FB00CD1FAE /* GameViewController.swift */; };
@@ -18,6 +23,11 @@
 
 /* Begin PBXFileReference section */
 		270456EB1E49473700BEF640 /* MyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
+		27A68BE41F426D2200A39787 /* backgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = backgroundMusic.mp3; sourceTree = "<group>"; };
+		27A68BE51F426D2200A39787 /* hitCat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hitCat.wav; sourceTree = "<group>"; };
+		27A68BE61F426D2200A39787 /* hitCatLady.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hitCatLady.wav; sourceTree = "<group>"; };
+		27A68BE71F426D2200A39787 /* lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lose.wav; sourceTree = "<group>"; };
+		27A68BE81F426D2200A39787 /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
 		3726E7F31DECF8FB00CD1FAE /* ZombieConga.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZombieConga.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3726E7F61DECF8FB00CD1FAE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3726E7FC1DECF8FB00CD1FAE /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -39,6 +49,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		27A68BE31F426D2200A39787 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				27A68BE41F426D2200A39787 /* backgroundMusic.mp3 */,
+				27A68BE51F426D2200A39787 /* hitCat.wav */,
+				27A68BE61F426D2200A39787 /* hitCatLady.wav */,
+				27A68BE71F426D2200A39787 /* lose.wav */,
+				27A68BE81F426D2200A39787 /* win.wav */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		3726E7EA1DECF8FB00CD1FAE = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +88,7 @@
 				3726E8051DECF8FB00CD1FAE /* LaunchScreen.storyboard */,
 				3726E8081DECF8FB00CD1FAE /* Info.plist */,
 				270456EB1E49473700BEF640 /* MyUtils.swift */,
+				27A68BE31F426D2200A39787 /* Sounds */,
 			);
 			path = ZombieConga;
 			sourceTree = "<group>";
@@ -131,7 +154,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3726E8021DECF8FB00CD1FAE /* Main.storyboard in Resources */,
+				27A68BED1F426D2200A39787 /* win.wav in Resources */,
+				27A68BEA1F426D2200A39787 /* hitCat.wav in Resources */,
 				3726E8041DECF8FB00CD1FAE /* Assets.xcassets in Resources */,
+				27A68BEC1F426D2200A39787 /* lose.wav in Resources */,
+				27A68BEB1F426D2200A39787 /* hitCatLady.wav in Resources */,
+				27A68BE91F426D2200A39787 /* backgroundMusic.mp3 in Resources */,
 				3726E8071DECF8FB00CD1FAE /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
