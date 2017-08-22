@@ -5,6 +5,7 @@ class GameScene: SKScene {
     var lastUpdateTime: TimeInterval = 0
     var dt: TimeInterval = 0
     let zombieMovePointsPerSec: CGFloat = 480.0
+    let catMovePointsPerSec: CGFloat = 480.0
     var velocity = CGPoint.zero
     let playableRect: CGRect
     var lastTouchLocation = CGPoint.zero
@@ -94,6 +95,7 @@ class GameScene: SKScene {
             rotate(sprite: zombie, direction: velocity)
         }
         boundsCheckZombie()
+        moveTrain()
     }
     
     override func didEvaluateActions() {
@@ -229,17 +231,41 @@ class GameScene: SKScene {
     }
     
     func zombieHit(cat: SKSpriteNode) {
-        cat.removeFromParent()
+        //cat.removeFromParent()
+        cat.name = "train"
+        cat.removeAllActions()
+        cat.setScale(1.0)
+        cat.zRotation = 0
+        cat.run(SKAction.colorize(with: SKColor.green, colorBlendFactor: 0.5, duration: 0.2))
+        
         run(catCollisionSound)
     }
     
     //enemy: SKSpriteNode
     func zombieHit() {
-        //Set zombie as invincible here
-        //Count times blinkAction below is run
-        
         //enemy.removeFromParent()
         run(enemyCollisionSound)
+    }
+    
+    func moveTrain() {
+        var targetPosition = self.zombie.position
+        
+        enumerateChildNodes(withName: "train") { node, stop in
+            if !node.hasActions() {
+                /*
+                 let offset = location - zombie.position
+                 let direction = offset.normalized()
+                 velocity = direction * zombieMovePointsPerSec
+                */
+                
+                let actionDuration = 0.3
+//                let offset = targetPosition - node.position
+//                let direction = offset.normalized()
+//                let catVelocity = direction * self.catMovePointsPerSec
+                node.run(SKAction.move(to: targetPosition, duration: actionDuration))
+            }
+            targetPosition = node.position
+        }
     }
     
     var zombieIsInvincible = false
@@ -252,8 +278,13 @@ class GameScene: SKScene {
                 hitCats.append(cat)
             }
         }
-        for cat in hitCats {
-            zombieHit(cat: cat)
+        
+        if(hitCats.count > 0) {
+            self.zombie.zPosition = 100
+            
+            for cat in hitCats {
+                zombieHit(cat: cat)
+            }
         }
         
         if(!self.zombieIsInvincible) {
