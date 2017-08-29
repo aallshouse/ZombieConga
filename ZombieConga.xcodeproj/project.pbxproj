@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		270456EC1E49473700BEF640 /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270456EB1E49473700BEF640 /* MyUtils.swift */; };
+		2785825B1F54ED75009DA8AA /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2785825A1F54ED75009DA8AA /* GameOverScene.swift */; };
 		27A68BE91F426D2200A39787 /* backgroundMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 27A68BE41F426D2200A39787 /* backgroundMusic.mp3 */; };
 		27A68BEA1F426D2200A39787 /* hitCat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 27A68BE51F426D2200A39787 /* hitCat.wav */; };
 		27A68BEB1F426D2200A39787 /* hitCatLady.wav in Resources */ = {isa = PBXBuildFile; fileRef = 27A68BE61F426D2200A39787 /* hitCatLady.wav */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		270456EB1E49473700BEF640 /* MyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
+		2785825A1F54ED75009DA8AA /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		27A68BE41F426D2200A39787 /* backgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = backgroundMusic.mp3; sourceTree = "<group>"; };
 		27A68BE51F426D2200A39787 /* hitCat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hitCat.wav; sourceTree = "<group>"; };
 		27A68BE61F426D2200A39787 /* hitCatLady.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hitCatLady.wav; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 		3726E7EA1DECF8FB00CD1FAE = {
 			isa = PBXGroup;
 			children = (
+				2785825A1F54ED75009DA8AA /* GameOverScene.swift */,
 				3726E7F51DECF8FB00CD1FAE /* ZombieConga */,
 				3726E7F41DECF8FB00CD1FAE /* Products */,
 			);
@@ -171,6 +174,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2785825B1F54ED75009DA8AA /* GameOverScene.swift in Sources */,
 				3726E7FD1DECF8FB00CD1FAE /* GameScene.swift in Sources */,
 				3726E7FF1DECF8FB00CD1FAE /* GameViewController.swift in Sources */,
 				3726E7F71DECF8FB00CD1FAE /* AppDelegate.swift in Sources */,

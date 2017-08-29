@@ -14,6 +14,8 @@ class GameScene: SKScene {
     let zombieAnimationKey: String = "zombieAnimation"
     let catCollisionSound: SKAction = SKAction.playSoundFileNamed("hitCat.wav", waitForCompletion: false)
     let enemyCollisionSound: SKAction = SKAction.playSoundFileNamed("hitCatLady.wav", waitForCompletion: false)
+    var lives = 5
+    var gameOver = false
     
     override init(size: CGSize) {
         let maxAspectRatio:CGFloat = 16.0 / 9.0
@@ -96,6 +98,12 @@ class GameScene: SKScene {
         }
         boundsCheckZombie()
         moveTrain()
+        
+        if lives <= 0 && !gameOver {
+            gameOver = true
+            print("You lose!")
+            showGameOverScene(didWin: false)
+        }
     }
     
     override func didEvaluateActions() {
@@ -245,26 +253,66 @@ class GameScene: SKScene {
     func zombieHit() {
         //enemy.removeFromParent()
         run(enemyCollisionSound)
+        loseCats()
+        lives -= 1
     }
     
     func moveTrain() {
         var targetPosition = self.zombie.position
         
+        var trainCount = 0
         enumerateChildNodes(withName: "train") { node, stop in
             if !node.hasActions() {
-                /*
-                 let offset = location - zombie.position
-                 let direction = offset.normalized()
-                 velocity = direction * zombieMovePointsPerSec
-                */
-                
                 let actionDuration = 0.3
-//                let offset = targetPosition - node.position
-//                let direction = offset.normalized()
-//                let catVelocity = direction * self.catMovePointsPerSec
                 node.run(SKAction.move(to: targetPosition, duration: actionDuration))
             }
             targetPosition = node.position
+            
+            trainCount += 1
+        }
+        
+        if(trainCount >= 15 && !self.gameOver) {
+            self.gameOver = true
+            print("You win!")
+            showGameOverScene(didWin: true)
+        }
+    }
+    
+    func showGameOverScene(didWin: Bool) {
+        //1
+        let gameOverScene = GameOverScene(size: size, won: didWin)
+        gameOverScene.scaleMode = scaleMode
+        //2
+        let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+        //3
+        view?.presentScene(gameOverScene, transition: reveal)
+    }
+    
+    func loseCats() {
+        //1
+        var loseCount = 0
+        enumerateChildNodes(withName: "train") { node, stop in
+            //2
+            var randomSpot = node.position
+            randomSpot.x += CGFloat.random(min: -100, max: 100)
+            randomSpot.y += CGFloat.random(min: -100, max: 100)
+            //3
+            node.name = ""
+            node.run(
+                SKAction.sequence([
+                    SKAction.group([
+                        SKAction.rotate(byAngle: π*4, duration: 1.0),
+                        SKAction.move(to: randomSpot, duration: 1.0),
+                        SKAction.scale(to: 0, duration: 1.0)
+                        ]),
+                    SKAction.removeFromParent()
+                    ])
+            )
+            //4
+            loseCount += 1
+            if loseCount >= 2 {
+                stop[0] = true
+            }
         }
     }
     
@@ -288,12 +336,12 @@ class GameScene: SKScene {
         }
         
         if(!self.zombieIsInvincible) {
-            //var hitEnemies: [SKSpriteNode] = []
+            var hitEnemies: [SKSpriteNode] = []
             enumerateChildNodes(withName: "enemy") { node, _ in
-                //let enemy = node as! SKSpriteNode
+                let enemy = node as! SKSpriteNode
                 if node.frame.insetBy(dx: 20, dy: 20).intersects(
                     self.zombie.frame) {
-                    //hitEnemies.append(enemy)
+                    hitEnemies.append(enemy)
                     
                     self.run(self.enemyCollisionSound)
                     self.zombieIsInvincible = true
@@ -312,10 +360,12 @@ class GameScene: SKScene {
                         }]))
                 }
             }
+            
+            if(hitEnemies.count > 0) {
+                for _ in hitEnemies {
+                    zombieHit()
+                }
+            }
         }
-        
-//        for enemy in hitEnemies {
-//            zombieHit(enemy: enemy)
-//        }
     }
 }
